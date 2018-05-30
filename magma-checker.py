@@ -1,11 +1,12 @@
 from __future__ import print_function
 from bs4 import BeautifulSoup
-import requests
-import re
-import urllib
+from random import randint
 import http.cookiejar
-import sys
+import requests
+import urllib
 import time
+import sys
+import re
 
 login_url = 'http://www.neopets.com/login.phtml'
 found_count = 0
@@ -33,7 +34,7 @@ with requests.Session() as s:
             neopoints = re.search(r'\>(.*?)\<',str(soup.find(id="npanchor"))).group(1)
             time_str = re.search(r'\>(.*?)\<',str(soup.find(id="nst"))).group(1)
             if "Moltara are permitted to enter the Pool" in Text:
-                print("Not now ", time_str + ' ' + neopoints, flush=True)
+                print("Not now ", time_str + ' ' + neopoints + ' NP', flush=True)
                 time_txt = open('X:\\User\\Documents\\magma-time-checker\\magma_times.txt', 'a')
                 time_txt.write('NOT found at ' + time_str + '\n')
                 time_txt.close()
@@ -49,4 +50,4 @@ with requests.Session() as s:
                 time_txt = open('X:\\User\\Documents\\magma-time-checker\\magma_times.txt', 'a')
                 time_txt.write('FOUND AT ' + time_str + '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n')
                 time_txt.close()
-            time.sleep(60)
+            time.sleep(randint(60, 300))
